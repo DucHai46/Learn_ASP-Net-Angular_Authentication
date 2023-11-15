@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "kYV2k6eVoDSZ3kOBp0csktcHe2QKmwiggKrmzGGI67E=",
+  "Source": "API_identity",
+  "BasePath": "_content/API_identity",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
