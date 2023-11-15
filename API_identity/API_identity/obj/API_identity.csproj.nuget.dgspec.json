@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\tailieu\\PTUDVCSDL\\API_identity\\API_identity\\API_identity.csproj": {}
+    "E:\\project\\dotnet_core\\identity_api\\API_identity\\API_identity\\API_identity.csproj": {}
   },
   "projects": {
-    "E:\\tailieu\\PTUDVCSDL\\API_identity\\API_identity\\API_identity.csproj": {
+    "E:\\project\\dotnet_core\\identity_api\\API_identity\\API_identity\\API_identity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\tailieu\\PTUDVCSDL\\API_identity\\API_identity\\API_identity.csproj",
+        "projectUniqueName": "E:\\project\\dotnet_core\\identity_api\\API_identity\\API_identity\\API_identity.csproj",
         "projectName": "API_identity",
-        "projectPath": "E:\\tailieu\\PTUDVCSDL\\API_identity\\API_identity\\API_identity.csproj",
+        "projectPath": "E:\\project\\dotnet_core\\identity_api\\API_identity\\API_identity\\API_identity.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "E:\\tailieu\\PTUDVCSDL\\API_identity\\API_identity\\obj\\",
+        "outputPath": "E:\\project\\dotnet_core\\identity_api\\API_identity\\API_identity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,6 +47,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.3.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

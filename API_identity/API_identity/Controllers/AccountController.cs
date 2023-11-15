@@ -1,6 +1,7 @@
 ﻿using API_identity.DataTransferObjects;
 using API_identity.Entities.Models;
 using API_identity.JwtFeatures;
+using API_identity.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,31 +18,27 @@ namespace API_identity.Controllers
         private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
         private readonly JwtHandler jwtHandler;
+        private readonly AuthService _authService;
 
-        public AccountController(UserManager<User> userManager, IMapper mapper, JwtHandler jwtHandler)
+        public AccountController(UserManager<User> userManager, IMapper mapper, JwtHandler jwtHandler, AuthService _authService)
         {
             this.jwtHandler = jwtHandler;
             this.userManager = userManager;
             this.mapper = mapper;
+            this._authService = _authService;
         }
 
 
         [HttpPost("Registration")]
-        public async Task<IActionResult> RegisterUser([FromBody] UserRegistertrationDto registertrationDto)
+        public IActionResult RegisterUser([FromBody] UserRegistertrationDto registertrationDto)
         {
-            if (registertrationDto == null || !ModelState.IsValid) {
+            if (registertrationDto == null || !ModelState.IsValid)
+            {
                 return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = false });
             }
-            var user  = mapper.Map<User>(registertrationDto);
 
-            var result = await userManager.CreateAsync(user, registertrationDto.Password);
-            if(!result.Succeeded)
-            {
-                var errors = result.Errors.Select(e => e.Description);
-                return Ok(new RegistrationResponseDto { Errors = errors, IsSuccessfulRegistration = false });
-            }
-
-            return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = true });
+            return Ok(this._authService.RegistrationResponseDto(registertrationDto));
+            
         }
 
         [HttpPost("Login")]
@@ -51,15 +48,10 @@ namespace API_identity.Controllers
 
             if(user == null || !await userManager.CheckPasswordAsync(user, userAuthentication.Password))
             {
-                return Unauthorized(new LoginResponse { ErrorMessage = "Invalid" });
+                return Ok(new LoginResponse { ErrorMessage = "Invalid" });
             }
 
-            var signingCredentials = jwtHandler.GetSigningCredentials();
-            var claims = jwtHandler.GetClaim(user);
-            var tokenOptions = jwtHandler.JwtSecurityToken(signingCredentials, claims);
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-
-            return Ok(new LoginResponse { IsAuthSuccessful = true, Token = token });
+            return Ok(this._authService.loginResponseAsync(userAuthentication));
         }
 
     }
