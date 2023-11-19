@@ -16,15 +16,11 @@ namespace API_identity.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<User> userManager;
-        private readonly IMapper mapper;
-        private readonly JwtHandler jwtHandler;
         private readonly AuthService _authService;
 
-        public AccountController(UserManager<User> userManager, IMapper mapper, JwtHandler jwtHandler, AuthService _authService)
+        public AccountController(UserManager<User> userManager, AuthService _authService)
         {
-            this.jwtHandler = jwtHandler;
             this.userManager = userManager;
-            this.mapper = mapper;
             this._authService = _authService;
         }
 
@@ -36,9 +32,7 @@ namespace API_identity.Controllers
             {
                 return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = false });
             }
-
             return Ok(this._authService.RegistrationResponseDto(registertrationDto));
-            
         }
 
         [HttpPost("Login")]
@@ -50,9 +44,7 @@ namespace API_identity.Controllers
             {
                 return Ok(new LoginResponse { ErrorMessage = "Invalid" });
             }
-
             return Ok(this._authService.loginResponseAsync(userAuthentication));
         }
-
     }
 }
